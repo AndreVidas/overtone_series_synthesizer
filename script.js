@@ -15,7 +15,7 @@ let gains = [];
 let analyser = null;
 let freqData = null;
 
-function initAudio() {
+function initAudio(fundamental_hertz) {
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   analyser = audioCtx.createAnalyser();
@@ -63,6 +63,45 @@ function setWaveform(type) {
   oscillators.forEach(osc => {
     osc.type = type;
   });
+}
+
+function setFundamentalFreq(hz) {
+  let i = 1;
+  oscillators.forEach(osc => {
+    osc.frequency.value = hz*i;
+    i += 1;
+  });
+}
+
+function handleKeyPress(e) {
+  if (e.key.toLowerCase() === "a") {
+    setFundamentalFreq(130.81); 
+  }
+
+  if (e.key.toLowerCase() === "s") {
+    setFundamentalFreq(146.83);
+  }
+
+    if (e.key.toLowerCase() === "d") {
+    setFundamentalFreq(164.81);
+  }
+      if (e.key.toLowerCase() === "f") {
+    setFundamentalFreq(174.61);
+  }
+      if (e.key.toLowerCase() === "g") {
+    setFundamentalFreq(196);
+  }
+      if (e.key.toLowerCase() === "h") {
+    setFundamentalFreq(220);
+  }
+      if (e.key.toLowerCase() === "j") {
+    setFundamentalFreq(246.94);
+  }
+  if (e.key.toLowerCase() === "k") {
+    setFundamentalFreq(261.63);
+  }
+
+  
 }
 
 // --- SLIDERS / VISUAL PART ---
@@ -114,6 +153,9 @@ document.getElementById("stopBtn").addEventListener("click", stopSound);
 document.getElementById("waveType").addEventListener("change", (e) => {
   setWaveform(e.target.value);
 });
+
+document.addEventListener("keydown", handleKeyPress);
+
 
 
 
