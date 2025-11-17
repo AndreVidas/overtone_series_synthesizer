@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Overtone Synth</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Overtone series</h2>
+<p>Drag the black dots up and down to change the volume of each overtone</p>
+
+<div>
+  <button id="startBtn">Start Sound</button>
+  <button id="stopBtn">Stop Sound</button>
+  <select id="waveType">
+    <option value="sine">Sine</option>
+    <option value="triangle">Triangle</option>
+    <option value="square">Square</option>
+    <option value="sawtooth">Sawtooth</option>
+  </select>
+</div>
+
+<div id="container"></div>
+<canvas id="fftCanvas" width="1400" height="200" style="border:8px solid rgb(86, 85, 85); margin-top:20px; background-color: rgb(0, 0, 0);"></canvas>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
