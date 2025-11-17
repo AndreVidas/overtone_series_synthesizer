@@ -14,6 +14,7 @@ let oscillators = [];
 let gains = [];
 let analyser = null;
 let freqData = null;
+let baseFreq = 110;
 
 function initAudio(fundamental_hertz) {
   audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -21,9 +22,6 @@ function initAudio(fundamental_hertz) {
   analyser = audioCtx.createAnalyser();
   analyser.fftSize = 2048;
   freqData = new Uint8Array(analyser.frequencyBinCount);
-
-
-  const baseFreq = 110; // fundamental frequency (A2)
 
   for (let i = 0; i < numOvertones; i++) {
     const osc = audioCtx.createOscillator();
@@ -44,6 +42,10 @@ function initAudio(fundamental_hertz) {
     oscillators.push(osc);
     gains.push(gain);
   }
+}
+
+function getBaseFreq(){
+    return 110;
 }
 
 function startSound() {
@@ -126,30 +128,59 @@ document.getElementById("waveType").addEventListener("change", (e) => {
 });
 
 window.addEventListener("keydown", function (e){
-  if (e.key.toLowerCase() === "a") {
-    setFundamentalFreq(130.81); 
+  if (e.key.toLowerCase() === "a") { // C
+    n = 3;
   }
-  if (e.key.toLowerCase() === "s") {
-    setFundamentalFreq(146.83);
+  if (e.key.toLowerCase() === "w") { // C#/Db
+    n = 4;
   }
-    if (e.key.toLowerCase() === "d") {
-    setFundamentalFreq(164.81);
+  if (e.key.toLowerCase() === "s") { // D
+    n = 5;
   }
-      if (e.key.toLowerCase() === "f") {
-    setFundamentalFreq(174.61);
+  if (e.key.toLowerCase() === "e") { // D#/Eb
+    n = 6;
   }
-      if (e.key.toLowerCase() === "g") {
-    setFundamentalFreq(196);
+  if (e.key.toLowerCase() === "d") { // E
+    n = 7;  
   }
-      if (e.key.toLowerCase() === "h") {
-    setFundamentalFreq(220);
+  if (e.key.toLowerCase() === "f") { // F
+    n = 8;
   }
-      if (e.key.toLowerCase() === "j") {
-    setFundamentalFreq(246.94);
+  if (e.key.toLowerCase() === "t") { // F#/Gb
+    n = 9;
   }
-  if (e.key.toLowerCase() === "k") {
-    setFundamentalFreq(261.63);
+  if (e.key.toLowerCase() === "g") { // G
+    n = 10;
   }
+  if (e.key.toLowerCase() === "y") { // G#/Ab
+    n = 11;
+  }
+  if (e.key.toLowerCase() === "h") { // A
+    n = 12;
+  }
+  if (e.key.toLowerCase() === "u") { // A#/Bb
+    n = 13;
+  }
+  if (e.key.toLowerCase() === "j") { // B
+    n = 14;
+  }
+  if (e.key.toLowerCase() === "k") { // C
+    n = 15;
+  }
+  if (e.key.toLowerCase() === ">") { // C
+    baseFreq *= 2;
+  }
+    if (e.key.toLowerCase() === "<") { // C
+    baseFreq *= 0.5;
+  }
+
+if(typeof n !== 'undefined'){
+    setFundamentalFreq(baseFreq*2**(n/12)); 
+}else{
+    n = 0;
+    setFundamentalFreq(baseFreq*2**(n/12)); 
+} 
+  
 });
 
 
